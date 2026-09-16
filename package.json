@@ -1,0 +1,19 @@
+{
+  "name": "support-queue",
+  "version": "1.0.0",
+  "description": "A helpdesk ticket queue with deterministic priority ordering",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.4",
+    "vitest": "^3.2.4"
+  }
+}
