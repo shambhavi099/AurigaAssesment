@@ -286,6 +286,7 @@ function App() {
               <input
                 required
                 type="datetime-local"
+                min={new Date().toISOString().slice(0, 16)}
                 value={form.responseDueAt}
                 onChange={(event) =>
                   updateForm("responseDueAt", event.target.value)
