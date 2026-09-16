@@ -1,27 +1,41 @@
-import tickets from "../data/tickets.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const ticketStore = [...tickets];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dataFile = path.join(__dirname, "../data/tickets.json");
+
+function readTickets() {
+  return JSON.parse(fs.readFileSync(dataFile, "utf-8"));
+}
+
+function writeTickets(tickets) {
+  fs.writeFileSync(dataFile, JSON.stringify(tickets, null, 2));
+}
 
 export function getAllTickets() {
-  return [...ticketStore];
+  return readTickets();
 }
 
 export function getTicketById(id) {
-  return ticketStore.find((ticket) => ticket.id === id) || null;
+  return readTickets().find((ticket) => ticket.id === id) || null;
 }
 
 export function createTicket(ticket) {
-  ticketStore.push(ticket);
+  const tickets = readTickets();
+  tickets.push(ticket);
+  writeTickets(tickets);
   return ticket;
 }
 
 export function clearTickets() {
-  ticketStore.length = 0;
+  writeTickets([]);
 }
 
 export default {
   getAllTickets,
   getTicketById,
   createTicket,
-  clearTickets
+  clearTickets,
 };
